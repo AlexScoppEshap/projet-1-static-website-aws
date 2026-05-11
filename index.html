@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Morocco Vision 2030 | Tourism, Technology & Sport</title>
+  <meta name="description"
+    content="A modern mini website showcasing Morocco’s economic expansion through tourism, technology and sport." />
+  <style>
+    :root {
+      --red: #c8102e;
+      --dark-red: #8f0d22;
+      --green: #006233;
+      --sand: #f8efe3;
+      --dark: #171111;
+      --text: #493b3b;
+      --white: #ffffff;
+      --soft: rgba(255, 255, 255, .78);
+      --shadow: 0 24px 80px rgba(23, 17, 17, .16);
+      --radius: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--sand);
+      color: var(--dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(200, 16, 46, .18), transparent 28%),
+        radial-gradient(circle at 85% 10%, rgba(0, 98, 51, .12), transparent 30%),
+        linear-gradient(135deg, #fff8ef 0%, #f7e7d6 100%);
+    }
+
+    .navbar {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1120px, calc(100% - 32px));
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px 12px 18px;
+      background: rgba(255, 255, 255, .72);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, .78);
+      border-radius: 999px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, .08);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      letter-spacing: -.04em;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--red);
+      color: var(--green);
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      box-shadow: inset 0 0 0 3px rgba(255, 255, 255, .34);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      color: rgba(23, 17, 17, .78);
+      transition: .25s ease;
+    }
+
+    .nav-links a:hover {
+      background: var(--red);
+      color: white;
+    }
+
+    .hero {
+      width: min(1180px, calc(100% - 32px));
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 140px 0 70px;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(200, 16, 46, .09);
+      color: var(--dark-red);
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+
+    .pulse {
+      width: 9px;
+      height: 9px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 0 8px rgba(0, 98, 51, .12);
+    }
+
+    h1 {
+      font-size: clamp(48px, 8vw, 104px);
+      line-height: .88;
+      letter-spacing: -.075em;
+      margin-bottom: 24px;
+    }
+
+    h1 span {
+      color: var(--red);
+    }
+
+    .lead {
+      max-width: 620px;
+      color: var(--text);
+      font-size: clamp(18px, 2vw, 22px);
+      margin-bottom: 34px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 20px;
+      border-radius: 999px;
+      font-weight: 850;
+      transition: .25s ease;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: white;
+      box-shadow: 0 18px 34px rgba(200, 16, 46, .25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background: var(--dark-red);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, .82);
+      color: var(--dark);
+      border: 1px solid rgba(23, 17, 17, .08);
+    }
+
+    .hero-visual {
+      position: relative;
+    }
+
+    .image-stack {
+      position: relative;
+      min-height: 650px;
+    }
+
+    .main-card {
+      position: absolute;
+      inset: 0 0 auto auto;
+      width: 86%;
+      height: 570px;
+      border-radius: 42px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transform: rotate(2deg);
+      background: #ddd;
+    }
+
+    .main-card::after,
+    .small-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, .38), transparent 50%);
+    }
+
+    .small-card {
+      position: absolute;
+      left: 0;
+      bottom: 24px;
+      width: 52%;
+      height: 250px;
+      border-radius: 34px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 8px solid var(--sand);
+      transform: rotate(-5deg);
+      background: #ddd;
+    }
+
+    .stat-floating {
+      position: absolute;
+      right: 22px;
+      bottom: 70px;
+      width: 190px;
+      padding: 18px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, .82);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, .12);
+      border: 1px solid rgba(255, 255, 255, .8);
+    }
+
+    .stat-floating strong {
+      display: block;
+      font-size: 34px;
+      line-height: 1;
+      color: var(--red);
+      letter-spacing: -.05em;
+    }
+
+    .stat-floating span {
+      font-size: 13px;
+      font-weight: 750;
+      color: var(--text);
+    }
+
+    section {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto 90px;
+      scroll-margin-top: 120px;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 30px;
+      align-items: end;
+      margin-bottom: 34px;
+    }
+
+    .kicker {
+      color: var(--red);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: .96;
+      letter-spacing: -.055em;
+    }
+
+    .section-head p {
+      color: var(--text);
+      font-size: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature-card {
+      background: var(--soft);
+      border: 1px solid rgba(255, 255, 255, .8);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 18px 60px rgba(23, 17, 17, .08);
+      transition: .25s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 26px 80px rgba(23, 17, 17, .13);
+    }
+
+    .feature-img {
+      height: 230px;
+      overflow: hidden;
+    }
+
+    .feature-card img {
+      height: 100%;
+      transition: .4s ease;
+    }
+
+    .feature-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .feature-content {
+      padding: 24px;
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 7px 11px;
+      border-radius: 999px;
+      color: var(--green);
+      background: rgba(0, 98, 51, .09);
+      font-weight: 850;
+      font-size: 12px;
+      margin-bottom: 14px;
+    }
+
+    h3 {
+      font-size: 24px;
+      line-height: 1.08;
+      letter-spacing: -.035em;
+      margin-bottom: 12px;
+    }
+
+    .feature-content p {
+      color: var(--text);
+      font-size: 15px;
+    }
+
+    .wide-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      background: var(--dark);
+      color: white;
+      border-radius: 42px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .wide-panel .copy {
+      padding: clamp(30px, 5vw, 58px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .wide-panel .copy p {
+      color: rgba(255, 255, 255, .72);
+      margin-top: 18px;
+      font-size: 17px;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .metric {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .1);
+    }
+
+    .metric strong {
+      display: block;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      letter-spacing: -.04em;
+    }
+
+    .metric span {
+      color: rgba(255, 255, 255, .65);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .wide-image {
+      min-height: 440px;
+    }
+
+    .wide-image img {
+      height: 100%;
+    }
+
+    .sport-layout {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+    }
+
+    .sport-hero {
+      position: relative;
+      min-height: 520px;
+      border-radius: 42px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .sport-hero img {
+      height: 100%;
+      position: absolute;
+      inset: 0;
+    }
+
+    .sport-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, .72), transparent 62%);
+    }
+
+    .sport-hero .overlay {
+      position: absolute;
+      z-index: 2;
+      left: 28px;
+      right: 28px;
+      bottom: 28px;
+      color: white;
+    }
+
+    .sport-hero .overlay p {
+      color: rgba(255, 255, 255, .76);
+      margin-top: 12px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .timeline-item {
+      background: rgba(255, 255, 255, .72);
+      border-radius: 26px;
+      padding: 24px;
+      border: 1px solid rgba(255, 255, 255, .82);
+      box-shadow: 0 16px 44px rgba(23, 17, 17, .07);
+    }
+
+    .timeline-item .year {
+      display: inline-flex;
+      color: white;
+      background: var(--red);
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .cta {
+      margin-bottom: 36px;
+      background: linear-gradient(135deg, var(--red), var(--dark-red));
+      color: white;
+      border-radius: 44px;
+      padding: clamp(34px, 6vw, 70px);
+      text-align: center;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: "✦";
+      position: absolute;
+      right: 8%;
+      top: -32px;
+      font-size: 220px;
+      line-height: 1;
+      color: rgba(0, 98, 51, .35);
+    }
+
+    .cta h2,
+    .cta p,
+    .cta a {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta p {
+      max-width: 720px;
+      margin: 18px auto 28px;
+      color: rgba(255, 255, 255, .8);
+      font-size: 18px;
+    }
+
+    footer {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto 28px;
+      padding: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      color: rgba(23, 17, 17, .58);
+      font-size: 14px;
+    }
+
+    .mobile-toggle {
+      display: none;
+      border: 0;
+      background: var(--red);
+      color: white;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .navbar {
+        border-radius: 24px;
+        align-items: flex-start;
+      }
+
+      .mobile-toggle {
+        display: grid;
+        place-items: center;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        padding: 12px;
+        background: rgba(255, 255, 255, .92);
+        border-radius: 22px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, .12);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        text-align: center;
+      }
+
+      .hero,
+      .section-head,
+      .wide-panel,
+      .sport-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 125px;
+        gap: 20px;
+      }
+
+      .image-stack {
+        min-height: 520px;
+      }
+
+      .main-card {
+        width: 92%;
+        height: 460px;
+      }
+
+      .small-card {
+        width: 58%;
+        height: 220px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .metric-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero {
+        min-height: auto;
+        padding-bottom: 40px;
+      }
+
+      h1 {
+        font-size: 52px;
+      }
+
+      .lead {
+        font-size: 17px;
+      }
+
+      .image-stack {
+        min-height: 430px;
+      }
+
+      .main-card {
+        height: 370px;
+        border-radius: 32px;
+      }
+
+      .small-card {
+        height: 170px;
+        border-radius: 26px;
+      }
+
+      .stat-floating {
+        width: 160px;
+        right: 0;
+        bottom: 40px;
+      }
+
+      .feature-img {
+        height: 210px;
+      }
+
+      .wide-image,
+      .sport-hero {
+        min-height: 360px;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="site-bg"></div>
+
+  <header class="navbar">
+    <a href="#accueil" class="brand" aria-label="Back to home">
+      <span class="brand-mark">✦</span>
+      <span>Morocco Vision</span>
+    </a>
+
+    <button class="mobile-toggle" aria-label="Open menu">☰</button>
+
+    <nav class="nav-links" aria-label="Navigation principale">
+      <a href="#accueil">Home</a>
+      <a href="#tourisme">Tourism</a>
+      <a href="#technologie">Technology</a>
+      <a href="#sport">Sport</a>
+    </nav>
+  </header>
+
+  <main id="accueil" class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow"><span class="pulse"></span> Kingdom of Morocco • Vision 2030</div>
+      <h1>Morocco in full <span>expansion</span></h1>
+      <p class="lead">Between ancient heritage, strategic investments and international ambition, Morocco is emerging as
+        one of North Africa’s most dynamic economic hubs.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#tourisme">Explore the country</a>
+        <a class="btn btn-secondary" href="#technologie">Discover the transformation</a>
+      </div>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <div class="image-stack">
+        <div class="main-card">
+          <img src="assets/Tour_Hassan-Rabat-2.jpg" alt="Traditional Moroccan architecture" />
+        </div>
+        <div class="small-card">
+          <img src="assets/morocco.landscape.webp" alt="Moroccan landscape" />
+        </div>
+        <div class="stat-floating">
+          <strong>2030</strong>
+          <span>A landmark year for tourism, digital growth and sport.</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section id="tourisme">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Tourism</div>
+        <h2>A global destination</h2>
+      </div>
+      <p>Morocco attracts visitors through the diversity of its experiences: imperial cities, desert landscapes, the
+        Atlas Mountains, Atlantic coastline, craftsmanship, gastronomy and hospitality.</p>
+    </div>
+
+    <div class="grid">
+      <article class="feature-card">
+        <div class="feature-img">
+          <img src="assets/marrakesh.jpg" alt="Marrakech in Morocco" />
+        </div>
+        <div class="feature-content">
+          <span class="tag">Culture</span>
+          <h3>Marrakech & the imperial cities</h3>
+          <p>A living heritage of medinas, riads, souks, palaces and traditional architecture that continues to
+            captivate travelers from around the world.</p>
+        </div>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-img">
+          <img src="assets/desert.jpg" alt="Moroccan desert" />
+        </div>
+        <div class="feature-content">
+          <span class="tag">Nature</span>
+          <h3>Desert, Atlas & ocean</h3>
+          <p>The country combines dunes, mountains, beaches, valleys and Berber villages, offering rare natural
+            diversity within a compact territory.</p>
+        </div>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-img">
+          <img src="assets/moroccan-hospitality.jpg" alt="Travel and hospitality" />
+        </div>
+        <div class="feature-content">
+          <span class="tag">Experience</span>
+          <h3>Hospitality & lifestyle</h3>
+          <p>Cuisine, tea, craftsmanship, music and warm hospitality shape a strong identity that can turn every stay
+            into a lasting memory.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="technologie">
+    <div class="wide-panel">
+      <div class="copy">
+        <div class="kicker">Technology</div>
+        <h2>An economy going digital</h2>
+        <p>Morocco is investing in digital services, outsourcing, startups, cloud infrastructure, data centers and
+          digital skills to strengthen its role as a regional hub.</p>
+        <div class="metric-row">
+          <div class="metric">
+            <strong>AI</strong>
+            <span>Artificial intelligence</span>
+          </div>
+          <div class="metric">
+            <strong>Cloud</strong>
+            <span>Modern infrastructure</span>
+          </div>
+          <div class="metric">
+            <strong>Startups</strong>
+            <span>Local innovation</span>
+          </div>
+        </div>
+      </div>
+      <div class="wide-image">
+        <img src="assets/economy.jpeg" alt="Modern architecture and digital economy" />
+      </div>
+    </div>
+  </section>
+
+  <section id="sport">
+    <div class="section-head">
+      <div>
+        <div class="kicker">Sport</div>
+        <h2>An ambitious sports scene</h2>
+      </div>
+      <p>With football as a popular driving force, major events are becoming a lever for national image, infrastructure
+        development and international attractiveness.</p>
+    </div>
+
+    <div class="sport-layout">
+      <article class="sport-hero">
+        <img src="assets/complexe-sportif-mohammed-vi.webp" alt="Football stadium" />
+        <div class="overlay">
+          <h3>Sport as a national accelerator</h3>
+          <p>Stadiums, mobility, tourism, hospitality and international visibility: major sporting events support a
+            broader economic momentum.</p>
+        </div>
+      </article>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <span class="year">Today</span>
+          <h3>A popular passion</h3>
+          <p>Football brings all generations together and strengthens the sense of national unity around major
+            competitions.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="year">2030</span>
+          <h3>A global showcase</h3>
+          <p>Co-hosting the 2030 FIFA World Cup gives Morocco major international visibility and accelerates several
+            strategic infrastructure projects.</p>
+        </div>
+        <div class="timeline-item">
+          <span class="year">Tomorrow</span>
+          <h3>A stronger national brand</h3>
+          <p>Sport, tourism and innovation come together to build a modern, confident and future-oriented national
+            image.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>A country between tradition and ambition</h2>
+    <p>This mini website can become your first AWS portfolio project: S3 static hosting, CloudFront distribution, Route
+      53 domain management, SSL certificate and clean deployment.</p>
+    <a class="btn btn-secondary" href="#accueil">Back to top</a>
+  </section>
+
+  <footer>
+    <span>© 2026 Morocco Vision — AWS portfolio project</span>
+    <span>S3 • CloudFront • Route 53</span>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector('.mobile-toggle');
+    const nav = document.querySelector('.nav-links');
+
+    toggle.addEventListener('click', () => {
+      nav.classList.toggle('open');
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => nav.classList.remove('open'));
+    });
+  </script>
+</body>
+
+</html>
